@@ -193,6 +193,79 @@ class Indicator extends StatelessWidget {
   }
 }
 
+class SmoothPageIndicatorViewNew extends StatelessWidget {
+  const SmoothPageIndicatorViewNew({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<SmoothPageIndicatorProvider>(
+      builder: (_, provider, ___) {
+        if (provider.totalVerticalPages == -1 ||
+            provider.currentVerticalIndex == -1) {
+          return SizedBox.shrink();
+        }
+
+        return SizedBox(
+          height: 82,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // Vertical indicators
+              Padding(
+                padding: EdgeInsets.only(
+                    left: provider.totalHorizontalPages >= 2
+                        ? (cs.width(context) / 4.5) / (3.2)
+                        : (cs.width(context) / 4.5) / (1.9)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: _buildDots(
+                    provider: provider,
+                    totalCount: provider.totalVerticalPages,
+                    currentIndex: provider.currentVerticalIndex,
+                    isHorizontal: false,
+                    visibleDots: provider.verticalVisibleDots,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+_buildDots({
+  required SmoothPageIndicatorProvider provider,
+  required int totalCount,
+  required int currentIndex,
+  required bool isHorizontal,
+  required int visibleDots,
+}) {
+  List<Widget> dots = [];
+
+  if (totalCount == 0) {
+    dots.clear();
+    return dots;
+  }
+
+  int start = currentIndex - 1;
+  int end = currentIndex + 1;
+
+  if (start < 0) {
+    start = 0;
+    end = math.min(visibleDots - 1, totalCount - 1);
+  } else if (end >= totalCount) {
+    end = totalCount - 1;
+    start = math.max(end - (visibleDots - 1), 0);
+  }
+
+  return dots;
+}
 
 //
 //

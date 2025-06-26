@@ -350,8 +350,8 @@ class _HomeVideoWidgetState extends State<HomeVideoWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             HomeSideBar(),
-            height2,
-            SmoothPageIndicatorView(),
+            height15,
+            SmoothPageIndicatorViewNew(),
             height15,
           ],
         ),

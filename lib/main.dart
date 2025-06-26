@@ -44,10 +44,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupDI();
   await Firebase.initializeApp();
-  FlutterError.onError = (errorDetails) {
-    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  };
-  FirebaseMessaging.onBackgroundMessage(_backgroundHandler);
+  // FlutterError.onError = (errorDetails) {
+  //   FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  // };
+  // FirebaseMessaging.onBackgroundMessage(_backgroundHandler);
 
   HomeWidget.setAppGroupId(appGroupId);
 

@@ -1,12 +1,11 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart' as fb;
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:socialverse/export.dart';
 import 'package:dio/dio.dart';
 import 'dart:math' show Random;
 import 'package:crypto/crypto.dart';
-
 
 enum AuthStatus {
   NotLoggedIn,
@@ -191,7 +190,6 @@ class AuthProvider extends ChangeNotifier {
           ..pop()
           ..pop()
           ..pop();
-
       } else {
         throw response.data['message'] ?? 'Login failed';
       }
@@ -267,30 +265,29 @@ class AuthProvider extends ChangeNotifier {
 
         log('Something went wrong');
       }
-
     } catch (e) {
       _registeredAuthStatus = AuthStatus.NotRegistered;
       notifyListeners();
 
       final errorMessage = e.toString().replaceAll('Exception: ', '');
 
-      if (errorMessage == 'Username is already taken' || errorMessage == 'Username can only have alphanumeric characters and underscores') {
+      if (errorMessage == 'Username is already taken' ||
+          errorMessage ==
+              'Username can only have alphanumeric characters and underscores') {
         _usernameError = errorMessage;
-      }else if(errorMessage == 'This email is already in use' || errorMessage == 'Invalid Email address.'){
+      } else if (errorMessage == 'This email is already in use' ||
+          errorMessage == 'Invalid Email address.') {
         _emailError = errorMessage;
-      }else if(errorMessage == 'First name can only have alphabets'){
+      } else if (errorMessage == 'First name can only have alphabets') {
         _firstnameError = errorMessage;
-      }else if(errorMessage == 'Last name can only have alphabets'){
+      } else if (errorMessage == 'Last name can only have alphabets') {
         _lastnameError = errorMessage;
       }
-
-
 
       notification.show(
         title: errorMessage,
         type: NotificationType.local,
       );
-
 
       log('Something went wrong');
     }
@@ -312,7 +309,6 @@ class AuthProvider extends ChangeNotifier {
       idToken: appleCredential.identityToken,
       rawNonce: rawNonce,
     );
-
 
     fb.User? user = (await fb.FirebaseAuth.instance.signInWithCredential(
       oauthCredential,
@@ -372,71 +368,80 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: ["profile", "email"],).signIn();
+  // Future<void> signInWithGoogle() async {
+  //   await GoogleSignIn.instance.initialize();
 
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+  //   final GoogleSignInAccount? googleUser = await GoogleSignIn.instance
+  //       .authenticate(scopeHint: ["profile", "email"]);
 
-    final credential = fb.GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+  //   final GoogleSignInAuthentication? googleAuth =
+  //       await googleUser?.authentication;
+  //   dynamic credential;
+  //   await googleUser?.authorizationClient
+  //       .authorizationForScopes(["profile", "email"]).then((e) {
+  //     credential = fb.GoogleAuthProvider.credential(
+  //       accessToken: e?.accessToken,
+  //       idToken: googleAuth?.idToken,
+  //     );
+  //   });
 
-    fb.User? user =
-        (await fb.FirebaseAuth.instance.signInWithCredential(credential)).user;
-    fb.IdTokenResult mytoken = await user!.getIdTokenResult();
-    _loggedInAuthStatus = AuthStatus.Authenticating;
-    notifyListeners();
-    String token = mytoken.token.toString();
-    log(token.toString());
+  //   if (credential == null) {
+  //     return;
+  //   }
 
-    Map data = {
-      'token': token,
-    };
+  //   fb.User? user =
+  //       (await fb.FirebaseAuth.instance.signInWithCredential(credential)).user;
+  //   fb.IdTokenResult mytoken = await user!.getIdTokenResult();
+  //   _loggedInAuthStatus = AuthStatus.Authenticating;
+  //   notifyListeners();
+  //   String token = mytoken.token.toString();
+  //   log(token.toString());
 
-    Response response = await _service.oauth(data);
+  //   Map data = {
+  //     'token': token,
+  //   };
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      final Map<String, dynamic> responseData = response.data;
-      var userData = responseData;
-      User authUser = User.fromJson(userData);
+  //   Response response = await _service.oauth(data);
 
-      User user = authUser;
-      log(user.token.toString());
+  //   if (response.statusCode == 200 || response.statusCode == 201) {
+  //     final Map<String, dynamic> responseData = response.data;
+  //     var userData = responseData;
+  //     User authUser = User.fromJson(userData);
 
-      await UserPreferences().saveUser(
-        balance: user.balance,
-        username: user.username,
-        email: user.email,
-        first_name: user.firstName,
-        last_name: user.lastName,
-        token: user.token,
-        profile_picture: user.profilePictureUrl,
-        grid_view: false,
-        logged_in: true,
-      );
-    }
+  //     User user = authUser;
+  //     log(user.token.toString());
 
-    logged_in = prefs?.getBool('logged_in') ?? false;
-    prefs_username = prefs?.getString('username') ?? '';
-    token = prefs?.getString('token') ?? '';
-    prefs_email = prefs?.getString('email') ?? '';
+  //     await UserPreferences().saveUser(
+  //       balance: user.balance,
+  //       username: user.username,
+  //       email: user.email,
+  //       first_name: user.firstName,
+  //       last_name: user.lastName,
+  //       token: user.token,
+  //       profile_picture: user.profilePictureUrl,
+  //       grid_view: false,
+  //       logged_in: true,
+  //     );
+  //   }
 
-    log(prefs_username.toString());
+  //   logged_in = prefs?.getBool('logged_in') ?? false;
+  //   prefs_username = prefs?.getString('username') ?? '';
+  //   token = prefs?.getString('token') ?? '';
+  //   prefs_email = prefs?.getString('email') ?? '';
 
-    username.text = prefs_username!;
+  //   log(prefs_username.toString());
 
-    _loggedInAuthStatus = AuthStatus.LoggedIn;
-    notifyListeners();
+  //   username.text = prefs_username!;
 
-    log('valid username');
-    log('Login Successful');
-    navKey.currentState!
-      ..pop()
-      ..pop();
-  }
+  //   _loggedInAuthStatus = AuthStatus.LoggedIn;
+  //   notifyListeners();
 
+  //   log('valid username');
+  //   log('Login Successful');
+  //   navKey.currentState!
+  //     ..pop()
+  //     ..pop();
+  // }
 
   Future<void> showAuthBottomSheet(context) {
     return showModalBottomSheet(

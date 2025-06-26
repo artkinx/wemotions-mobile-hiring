@@ -20,8 +20,6 @@ class HomeVideoProgressIndicator extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             child: Stack(
               children: [
-
-
                 VideoProgressIndicator(
                   __.videoController(__.index)!,
                   allowScrubbing: true,

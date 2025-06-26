@@ -162,7 +162,7 @@ class VideoProvider with ChangeNotifier {
   String get progressString => _progressString;
 
   Future<void> saveDownloadedVideoToGallery({required String videoPath}) async {
-    await ImageGallerySaver.saveFile(videoPath);
+    await ImageGallerySaverPlus.saveFile(videoPath);
     log("Video Saved to Gallery");
   }
 

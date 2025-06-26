@@ -20,7 +20,7 @@ class QrCodeProvider extends ChangeNotifier {
   }
 
   saved(Uint8List image) async {
-    await ImageGallerySaver.saveImage(image);
+    await ImageGallerySaverPlus.saveImage(image);
     print("File Saved to Gallery");
   }
 

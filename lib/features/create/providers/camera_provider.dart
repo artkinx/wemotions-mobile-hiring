@@ -1,25 +1,22 @@
 import 'dart:developer';
-import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter/return_code.dart';
+// import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
+// import 'package:ffmpeg_kit_flutter_new/return_code.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:socialverse/export.dart';
 
 class CameraProvider extends ChangeNotifier {
+  bool _isAnythingNull = false;
+  bool get isAnythingNull => _isAnythingNull;
 
-  bool _isAnythingNull=false;
-  bool get isAnythingNull=>_isAnythingNull;
-
-  set isAnythingNull(bool val){
-    if(_isAnythingNull!=val){
-      _isAnythingNull=val;
+  set isAnythingNull(bool val) {
+    if (_isAnythingNull != val) {
+      _isAnythingNull = val;
       notifyListeners();
     }
   }
 
-
   CameraController? _cameraController;
-  CameraController? get cameraController=> _cameraController;
-
+  CameraController? get cameraController => _cameraController;
 
   VideoPlayerController? videoController;
 
@@ -31,27 +28,25 @@ class CameraProvider extends ChangeNotifier {
   bool _isThroughSingleTap = false;
   bool get isThroughSingleTap => _isThroughSingleTap;
 
-  set isThroughSingleTap(val){
-    if(_isThroughSingleTap!=val) {
+  set isThroughSingleTap(val) {
+    if (_isThroughSingleTap != val) {
       _isThroughSingleTap = val;
       notifyListeners();
     }
   }
 
-
   List<CameraDescription> _localValue = [];
   List<CameraDescription> get localValue => _localValue;
 
-  set localValue(value){
-    _localValue=value;
+  set localValue(value) {
+    _localValue = value;
     notifyListeners();
   }
 
-  bool _isReply=false;
-  bool get isReply=> _isReply;
+  bool _isReply = false;
+  bool get isReply => _isReply;
 
-  set isReply(val)=> _isReply=val;
-
+  set isReply(val) => _isReply = val;
 
   String _recordingDuration = "00:00";
   String get recordingDuration => _recordingDuration;
@@ -72,7 +67,7 @@ class CameraProvider extends ChangeNotifier {
 
     _recordingTimer = Timer.periodic(
       const Duration(seconds: 1),
-          (Timer timer) {
+      (Timer timer) {
         _recordingSeconds++;
 
         // Format minutes and seconds
@@ -87,7 +82,7 @@ class CameraProvider extends ChangeNotifier {
 
   // Stop recording timer
   void stopRecordingTimer() {
-    _recordingLastDuration=_recordingDuration;
+    _recordingLastDuration = _recordingDuration;
     _recordingTimer?.cancel();
     _recordingTimer = null;
     _recordingSeconds = 0;
@@ -97,24 +92,22 @@ class CameraProvider extends ChangeNotifier {
 
   bool _isDisposed = false;
 
-  bool _recordingCompleted=false;
-  bool get recordingCompleted=>_recordingCompleted;
+  bool _recordingCompleted = false;
+  bool get recordingCompleted => _recordingCompleted;
 
-  set recordingCompleted(bool val){
-    if(_recordingCompleted!=val){
-      _recordingCompleted=val;
+  set recordingCompleted(bool val) {
+    if (_recordingCompleted != val) {
+      _recordingCompleted = val;
       notifyListeners();
     }
-
   }
 
+  bool _hasPermission = false;
+  bool get hasPermission => _hasPermission;
 
-  bool _hasPermission=false;
-  bool get hasPermission=>_hasPermission;
-
-  set hasPermission(bool val){
-    if(hasPermission!=val){
-      _hasPermission=val;
+  set hasPermission(bool val) {
+    if (hasPermission != val) {
+      _hasPermission = val;
       notifyListeners();
     }
   }
@@ -137,21 +130,21 @@ class CameraProvider extends ChangeNotifier {
 
   Offset? _pressPosition;
 
-  Offset? get pressPosition=>_pressPosition;
+  Offset? get pressPosition => _pressPosition;
 
-  set pressPosition(Offset? val){
-    if(_pressPosition!=val){
-      _pressPosition=val;
+  set pressPosition(Offset? val) {
+    if (_pressPosition != val) {
+      _pressPosition = val;
       notifyListeners();
     }
   }
 
   bool _isRecordingLocked = false;
-  bool get isRecordingLocked=>_isRecordingLocked;
+  bool get isRecordingLocked => _isRecordingLocked;
 
-  set isRecordingLocked(bool val){
-    if(_isRecordingLocked!=val){
-      _isRecordingLocked=val;
+  set isRecordingLocked(bool val) {
+    if (_isRecordingLocked != val) {
+      _isRecordingLocked = val;
       notifyListeners();
     }
   }
@@ -161,16 +154,15 @@ class CameraProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool _isLockIconHovered=false;
+  bool _isLockIconHovered = false;
   bool get isLockIconHovered => _isLockIconHovered;
 
-  set isLockIconHovered(bool val){
-    if(_isLockIconHovered!=val){
-      _isLockIconHovered=val;
+  set isLockIconHovered(bool val) {
+    if (_isLockIconHovered != val) {
+      _isLockIconHovered = val;
       notifyListeners();
     }
   }
-
 
   List<AssetEntity> _assets = <AssetEntity>[];
   List<AssetEntity> get assets => _assets;
@@ -179,7 +171,7 @@ class CameraProvider extends ChangeNotifier {
   double get recordPercentage => _recordPercentage;
 
   set recordPercentage(double value) {
-    if(_recordPercentage!=value){
+    if (_recordPercentage != value) {
       _recordPercentage = value;
       notifyListeners();
     }
@@ -189,7 +181,7 @@ class CameraProvider extends ChangeNotifier {
   bool get isCameraFlashOn => _isCameraFlashOn;
 
   set isCameraFlashOn(bool value) {
-    if(_isCameraFlashOn!=value){
+    if (_isCameraFlashOn != value) {
       _isCameraFlashOn = value;
       notifyListeners();
     }
@@ -201,7 +193,7 @@ class CameraProvider extends ChangeNotifier {
   bool get isVideoRecord => _isVideoRecord;
 
   set isVideoRecord(bool value) {
-    if(_isVideoRecord!=value){
+    if (_isVideoRecord != value) {
       _isVideoRecord = value;
       notifyListeners();
     }
@@ -211,7 +203,7 @@ class CameraProvider extends ChangeNotifier {
   bool get isRecordStart => _isRecordStart;
 
   set isRecordStart(bool value) {
-    if(_isRecordStart!=value){
+    if (_isRecordStart != value) {
       _isRecordStart = value;
       notifyListeners();
     }
@@ -221,7 +213,7 @@ class CameraProvider extends ChangeNotifier {
   double get percentIndicatorRadius => _percentIndicatorRadius;
 
   set percentIndicatorRadius(double value) {
-    if(_percentIndicatorRadius!=value){
+    if (_percentIndicatorRadius != value) {
       _percentIndicatorRadius = value;
       notifyListeners();
     }
@@ -231,7 +223,7 @@ class CameraProvider extends ChangeNotifier {
   double get buttonPressSize => _buttonPressSize;
 
   set buttonPressSize(double value) {
-    if(_buttonPressSize!=value){
+    if (_buttonPressSize != value) {
       _buttonPressSize = value;
       notifyListeners();
     }
@@ -239,15 +231,14 @@ class CameraProvider extends ChangeNotifier {
 
   bool shouldStartRecording = false;
 
-  bool _isRecording=false;
-  bool get isRecording=>_isRecording;
-
+  bool _isRecording = false;
+  bool get isRecording => _isRecording;
 
   bool _isCameraFlip = false;
   bool get isCameraFlip => _isCameraFlip;
 
   set isCameraFlip(bool value) {
-    if(_isCameraFlip!=value){
+    if (_isCameraFlip != value) {
       _isCameraFlip = value;
       notifyListeners();
     }
@@ -257,19 +248,17 @@ class CameraProvider extends ChangeNotifier {
   bool get isRearCamera => _isRearCamera;
 
   set isRearCamera(bool value) {
-    if(_isRearCamera!=value){
+    if (_isRearCamera != value) {
       _isRearCamera = value;
       notifyListeners();
     }
   }
 
-
-
   bool _isLongPressed = false;
   bool get isLongPressed => _isLongPressed;
 
   set isLongPressed(bool value) {
-    if(_isLongPressed!=value){
+    if (_isLongPressed != value) {
       _isLongPressed = value;
       notifyListeners();
     }
@@ -279,7 +268,7 @@ class CameraProvider extends ChangeNotifier {
   bool get isVideoPause => _isVideoPause;
 
   set isVideoPause(bool value) {
-    if(_isVideoPause!=value){
+    if (_isVideoPause != value) {
       _isVideoPause = value;
       notifyListeners();
     }
@@ -289,7 +278,7 @@ class CameraProvider extends ChangeNotifier {
   bool get showCameraScreen => _showCameraScreen;
 
   set showCameraScreen(bool value) {
-    if(_showCameraScreen!=value){
+    if (_showCameraScreen != value) {
       _showCameraScreen = value;
       notifyListeners();
     }
@@ -299,7 +288,7 @@ class CameraProvider extends ChangeNotifier {
   double get videoSpeed => _videoSpeed;
 
   set videoSpeed(double value) {
-    if(_videoSpeed!=value){
+    if (_videoSpeed != value) {
       _videoSpeed = value;
       notifyListeners();
     }
@@ -309,11 +298,10 @@ class CameraProvider extends ChangeNotifier {
   bool get isTimerOn => _isTimerOn;
 
   set isTimerOn(bool value) {
-    if(_isTimerOn!=value){
+    if (_isTimerOn != value) {
       _isTimerOn = value;
       notifyListeners();
     }
-
   }
 
   int _timerValue = 0;
@@ -323,7 +311,7 @@ class CameraProvider extends ChangeNotifier {
   int get selectedTimerDuration => _selectedTimerDuration;
 
   set selectedTimerDuration(int value) {
-    if(_selectedTimerDuration!=value){
+    if (_selectedTimerDuration != value) {
       _selectedTimerDuration = value;
       notifyListeners();
     }
@@ -332,8 +320,8 @@ class CameraProvider extends ChangeNotifier {
   // ======================== Zoom Variables =========================
   double _currentZoomLevel = 1.0;
   double get currentZoomLevel => _currentZoomLevel;
-  set currentZoomLevel(double val){
-    _currentZoomLevel=val;
+  set currentZoomLevel(double val) {
+    _currentZoomLevel = val;
   }
 
   double _minZoomLevel = 1.0;
@@ -349,9 +337,6 @@ class CameraProvider extends ChangeNotifier {
   List<XFile> _videoSegments = [];
   List<XFile> get videoSegments => _videoSegments;
   // ======================================================================
-
-
-
 
   // ======================== Permissions ==============================
   Future<void> requestPermissions() async {
@@ -402,7 +387,6 @@ class CameraProvider extends ChangeNotifier {
 
       _isCameraFlashOn = false;
 
-
       // Fetch min and max zoom levels
       _minZoomLevel = await _cameraController!.getMinZoomLevel();
       _maxZoomLevel = await _cameraController!.getMaxZoomLevel();
@@ -434,7 +418,7 @@ class CameraProvider extends ChangeNotifier {
   Future<void> setZoomLevel(double zoom) async {
     if (!_isCameraReady) return;
 
-    if(_currentZoomLevel==zoom.clamp(_minZoomLevel, _maxZoomLevel)) return;
+    if (_currentZoomLevel == zoom.clamp(_minZoomLevel, _maxZoomLevel)) return;
 
     // Clamp zoom level between min and max
     double newZoom = zoom.clamp(_minZoomLevel, _maxZoomLevel);
@@ -457,7 +441,7 @@ class CameraProvider extends ChangeNotifier {
 
   /// Starts video recording
   Future<void> startRecording() async {
-    _isRecording=true;
+    _isRecording = true;
 
     _buttonPressSize = 70;
     _percentIndicatorRadius = 70;
@@ -476,14 +460,11 @@ class CameraProvider extends ChangeNotifier {
     } catch (e) {
       log('Error starting video recording: $e');
     }
-
   }
 
   /// Stops video recording
   Future<void> stopRecording({bool isFromFlip = false}) async {
-
     progressReset();
-
 
     stopRecordingTimer();
 
@@ -497,33 +478,32 @@ class CameraProvider extends ChangeNotifier {
       } catch (e) {
         log('Error stopping video recording: $e');
       }
-
     } else {
       try {
         XFile? recordedVideo = await _cameraController!.stopVideoRecording();
-        _videoSegments.clear();  // i dont know let me check after some time
+        _videoSegments.clear(); // i dont know let me check after some time
         _videoSegments.add(recordedVideo); // Store the segment even during flip
-              log('DEBUG: Recording stopped from flip');
+        log('DEBUG: Recording stopped from flip');
       } catch (e) {
         log('Error stopping video recording during flip: $e');
       }
     }
     _recordingCompleted = true;
-    _isRecording=false;
+    _isRecording = false;
     if (_isCameraFlashOn) {
-      await setFlashMode(_isCameraFlashOn); // This will restore appropriate flash mode
+      await setFlashMode(
+          _isCameraFlashOn); // This will restore appropriate flash mode
     }
   }
 
   /// Handles recording progress
   void startProgress() {
-
     _recordPercentage = 0.0;
 
     Timer.periodic(const Duration(milliseconds: 100), (timer) async {
       _recordPercentage += 0.001667;
       // if stopped recording
-      if(!_isRecording) _recordPercentage=1;
+      if (!_isRecording) _recordPercentage = 1;
 
       if (_recordPercentage >= 1.0) {
         _recordPercentage = 1.0;
@@ -549,10 +529,9 @@ class CameraProvider extends ChangeNotifier {
     _buttonPressSize = 50;
     _isRecordStart = false;
     _isVideoRecord = false;
-    shouldStartRecording=false;
+    shouldStartRecording = false;
     notifyListeners();
   }
-
 
   /// Initializes the video player after recording
   void initVideo() {
@@ -578,15 +557,11 @@ class CameraProvider extends ChangeNotifier {
 
     // turning flash off if in use
 
-
-    if(_isCameraFlashOn) {
+    if (_isCameraFlashOn) {
       await toggleFlash();
-
     }
 
     _isCameraFlip = true;
-
-
 
     try {
       if (_isCameraReady) {
@@ -595,7 +570,7 @@ class CameraProvider extends ChangeNotifier {
 
         try {
           newCamera = cameras.firstWhere(
-                (camera) => camera.lensDirection != lensDirection,
+            (camera) => camera.lensDirection != lensDirection,
           );
         } catch (e) {
           log('No alternative camera found.');
@@ -631,10 +606,9 @@ class CameraProvider extends ChangeNotifier {
 
             // Store old controller for later disposal
             oldController = _cameraController;
-            isAnythingNull=true;
+            isAnythingNull = true;
             _cameraController = null;
             _isCameraReady = false; // Mark as not ready during transition
-
           } catch (e) {
             _cameraController = null;
             log('Error disposing camera during flip: $e');
@@ -649,7 +623,6 @@ class CameraProvider extends ChangeNotifier {
           imageFormatGroup: ImageFormatGroup.jpeg,
         );
 
-
         // Dispose old controller after new one is created
         if (oldController != null) {
           await oldController.dispose().catchError((e) {
@@ -657,11 +630,11 @@ class CameraProvider extends ChangeNotifier {
           });
         }
 
-        isAnythingNull=false;
+        isAnythingNull = false;
 
         try {
           await _cameraController!.initialize();
-          _isRearCamera=!_isRearCamera;
+          _isRearCamera = !_isRearCamera;
           _isCameraReady = true;
 
           // Fetch min and max zoom levels
@@ -725,18 +698,18 @@ class CameraProvider extends ChangeNotifier {
 
     log("Executing FFmpeg command: $ffmpegCommand");
 
-    await FFmpegKit.execute(ffmpegCommand).then((session) async {
-      final returnCode = await session.getReturnCode();
+    // await FFmpegKit.execute(ffmpegCommand).then((session) async {
+    //   final returnCode = await session.getReturnCode();
 
-      if (ReturnCode.isSuccess(returnCode)) {
-        log('Video segments merged successfully at $outputPath');
-        selectedVideo = XFile(outputPath);
-      } else if (ReturnCode.isCancel(returnCode)) {
-        log('Video merging was cancelled.');
-      } else {
-        log('Video merging failed with return code ${returnCode!.getValue()}');
-      }
-    });
+    //   if (ReturnCode.isSuccess(returnCode)) {
+    //     log('Video segments merged successfully at $outputPath');
+    //     selectedVideo = XFile(outputPath);
+    //   } else if (ReturnCode.isCancel(returnCode)) {
+    //     log('Video merging was cancelled.');
+    //   } else {
+    //     log('Video merging failed with return code ${returnCode!.getValue()}');
+    //   }
+    // });
 
     if (selectedVideo != null) {
       return selectedVideo;
@@ -747,15 +720,12 @@ class CameraProvider extends ChangeNotifier {
 
   /// Resets all values and states
 
-
   Future<void> resetValues({bool isDisposing = false}) async {
-
     if (_isDisposed) return;
 
-    if(_isRecording) return;
+    if (_isRecording) return;
 
-    if(_isCameraFlashOn) await toggleFlash();
-
+    if (_isCameraFlashOn) await toggleFlash();
 
     // Cancel timers first
     _recordingTimer?.cancel();
@@ -799,15 +769,14 @@ class CameraProvider extends ChangeNotifier {
     // Dispose camera controller properly
     try {
       if (_cameraController != null) {
-        Future.microtask(() async{
-          var _oldCameraController= _cameraController;
+        Future.microtask(() async {
+          var _oldCameraController = _cameraController;
           _cameraController = null;
           notifyListeners();
           await _oldCameraController!.pausePreview();
           await _oldCameraController.dispose();
-          _oldCameraController=null;
+          _oldCameraController = null;
         }).then((value) => notifyListeners());
-
       }
     } catch (e) {
       log('Error disposing camera controller: $e');
@@ -818,11 +787,7 @@ class CameraProvider extends ChangeNotifier {
     if (!isDisposing) {
       notifyListeners();
     }
-
-
   }
-
-
 
   /// Toggles the flash mode between on and off
   Future<void> toggleFlash() async {
@@ -836,25 +801,22 @@ class CameraProvider extends ChangeNotifier {
     try {
       _isCameraFlashOn = !_isCameraFlashOn;
 
-      if(!_isRearCamera){
+      if (!_isRearCamera) {
         await frontFlash(_isCameraFlashOn);
       }
 
       if ((_isRearCamera)) {
         // Use torch mode for video recording
-        await _cameraController!.setFlashMode(
-            _isCameraFlashOn ? FlashMode.torch : FlashMode.off
-        );
+        await _cameraController!
+            .setFlashMode(_isCameraFlashOn ? FlashMode.torch : FlashMode.off);
       } else {
         // Use regular flash mode for photos
-        await _cameraController!.setFlashMode(
-            _isCameraFlashOn ? FlashMode.always : FlashMode.off
-        );
+        await _cameraController!
+            .setFlashMode(_isCameraFlashOn ? FlashMode.always : FlashMode.off);
       }
 
       log("Flash ${_isCameraFlashOn ? 'ON' : 'OFF'}");
       notifyListeners();
-
     } catch (e) {
       log('Flash error: $e');
       // Revert flash state on error
@@ -876,8 +838,7 @@ class CameraProvider extends ChangeNotifier {
     if (!_isCameraReady || _cameraController == null) return;
 
     try {
-
-      if(_recordingCompleted && _isCameraFlashOn){
+      if (_recordingCompleted && _isCameraFlashOn) {
         // await frontFlash(_isCameraFlashOn);
         await toggleFlash();
         notifyListeners();
@@ -887,13 +848,11 @@ class CameraProvider extends ChangeNotifier {
       _isCameraFlashOn = enabled;
 
       if (_isVideoRecord || _isRecording) {
-        await _cameraController!.setFlashMode(
-            enabled ? FlashMode.torch : FlashMode.off
-        );
+        await _cameraController!
+            .setFlashMode(enabled ? FlashMode.torch : FlashMode.off);
       } else {
-        await _cameraController!.setFlashMode(
-            enabled ? FlashMode.always : FlashMode.off
-        );
+        await _cameraController!
+            .setFlashMode(enabled ? FlashMode.always : FlashMode.off);
       }
 
       notifyListeners();
@@ -904,8 +863,8 @@ class CameraProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> frontFlash(bool isFlashOn) async{
-    if(!isFlashOn) {
+  Future<void> frontFlash(bool isFlashOn) async {
+    if (!isFlashOn) {
       log("Original Brightness: $_originalBrightness");
       await ScreenBrightness().setScreenBrightness(_originalBrightness!);
       return;
@@ -916,8 +875,6 @@ class CameraProvider extends ChangeNotifier {
     await ScreenBrightness().setScreenBrightness(1.0);
 
     await Future.delayed(Duration(milliseconds: 300));
-
-
   }
 
   @override
@@ -929,9 +886,6 @@ class CameraProvider extends ChangeNotifier {
     _cameraController!.dispose();
     super.dispose();
   }
-
-
-
 
   /// Picks a video from the gallery using AssetPicker
   Future<void> imagePicker(BuildContext context) async {

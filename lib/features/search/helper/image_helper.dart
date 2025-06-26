@@ -8,14 +8,14 @@ class ImageHelper {
     required CropStyle cropStyle,
   }) async {
     final pickedFile =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       final croppedFile = await ImageCropper().cropImage(
         sourcePath: pickedFile.path,
-        cropStyle: cropStyle,
         uiSettings: [
           AndroidUiSettings(
             toolbarTitle: 'Crop Image',
+            cropStyle: cropStyle,
             toolbarColor: Theme.of(context).primaryColor,
             toolbarWidgetColor: Theme.of(context).focusColor,
             backgroundColor: Theme.of(context).primaryColor,
@@ -25,6 +25,7 @@ class ImageHelper {
             lockAspectRatio: false,
           ),
           IOSUiSettings(
+            cropStyle: cropStyle,
             title: 'Crop Image',
           ),
         ],

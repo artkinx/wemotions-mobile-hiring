@@ -21,19 +21,20 @@ export 'package:cached_network_image/cached_network_image.dart';
 export 'package:wechat_assets_picker/wechat_assets_picker.dart';
 export 'package:percent_indicator/percent_indicator.dart';
 export 'package:path/path.dart' hide context;
-export 'package:image_gallery_saver/image_gallery_saver.dart';
+export 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:image_picker/image_picker.dart';
 export 'package:image_cropper/image_cropper.dart';
 export 'package:permission_handler/permission_handler.dart';
 export 'package:shared_preferences/shared_preferences.dart';
-export 'package:unicons/unicons.dart';
+export 'package:unicons/unicons.dart' hide BoxPainter, ImageIcon, TextPainter;
 export 'package:camera/camera.dart';
 export 'package:provider/provider.dart';
 // export 'package:flutter_stripe/flutter_stripe.dart' hide Card;
 export 'package:qr_flutter/qr_flutter.dart';
 export 'package:screenshot/screenshot.dart';
-export 'package:qr_code_scanner/qr_code_scanner.dart' hide CameraException;
+export 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart'
+    hide CameraException;
 export 'package:flutter_switch/flutter_switch.dart';
 // export 'package:flutter_dotenv/flutter_dotenv.dart';
 export 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -42,8 +43,6 @@ export 'package:home_widget/home_widget.dart';
 export 'package:shimmer/shimmer.dart';
 export 'package:audioplayers/audioplayers.dart';
 export 'package:flutter_linkify/flutter_linkify.dart';
-
-
 
 // Utils, Widgets, Constants, Extensions, Configs
 // export 'package:socialverse/app.dart';
@@ -108,8 +107,6 @@ export 'package:socialverse/features/home/widgets/reply_video/reply_video_widget
 export 'package:socialverse/features/home/utils/download_bar.dart';
 export 'package:socialverse/features/home/utils/motions_sheet.dart';
 
-
-
 export 'package:socialverse/features/create/widgets/camera_bar_item.dart';
 export 'package:socialverse/features/create/widgets/circular_button.dart';
 export 'package:socialverse/features/create/widgets/post_list_tile.dart';
@@ -118,7 +115,6 @@ export 'package:socialverse/features/create/widgets/post_textformfield.dart';
 export 'package:socialverse/features/create/widgets/record_button.dart';
 export 'package:socialverse/features/create/widgets/tagpeople_widget.dart';
 export 'package:socialverse/features/create/widgets/image_picker.dart';
-
 
 export 'package:socialverse/features/profile/presentation/edit_profile/edit_bio_screen.dart';
 export 'package:socialverse/features/profile/presentation/edit_profile/edit_links_screen.dart';
@@ -138,7 +134,6 @@ export 'package:socialverse/features/profile/presentation/settings/account/manag
 export 'package:socialverse/features/profile/presentation/settings/general/qr_code_screen.dart';
 export 'package:socialverse/features/profile/presentation/settings/general/settings_screen.dart';
 export 'package:socialverse/features/profile/presentation/settings/general/theme_switch_screen.dart';
-
 
 export 'package:socialverse/features/profile/widgets/account/account_save_button.dart';
 export 'package:socialverse/features/profile/widgets/profile/edit_profile/profile_aligned_text.dart';
@@ -202,11 +197,6 @@ export 'package:socialverse/features/search/widgets/subverse/subverse_list_item.
 export 'package:socialverse/features/search/widgets/subverse/subverse_textformfield.dart';
 export 'package:socialverse/features/search/widgets/subverse/subverse_widget.dart';
 
-
-
-
-
-
 // Models, Services, Repositories
 export 'package:socialverse/core/domain/models/category_model.dart';
 export 'package:socialverse/core/domain/models/notifications_model.dart';
@@ -239,9 +229,6 @@ export 'package:socialverse/features/search/domain/services/edit_subverse_servic
 export 'package:socialverse/features/search/domain/services/subscription_service.dart';
 export 'package:socialverse/features/search/domain/services/subverse_service.dart';
 
-
-
-
 // Providers
 // export 'package:socialverse/core/providers/bottom_nav_provider.dart';
 // export 'package:socialverse/core/providers/notification_provider.dart';
@@ -261,7 +248,6 @@ export 'package:socialverse/features/home/providers/exit_provider.dart';
 
 // export 'package:socialverse/core/providers/snackbar_provider.dart';
 
-
 export 'package:socialverse/features/profile/providers/edit_profile/edit_profile_provider.dart';
 export 'package:socialverse/features/profile/providers/profile/profile_provider.dart';
 export 'package:socialverse/features/profile/providers/profile/user_profile_provider.dart';
@@ -277,9 +263,6 @@ export 'package:socialverse/features/search/providers/search_provider.dart';
 export 'package:socialverse/features/search/providers/subscription_provider.dart';
 
 export 'package:socialverse/features/home/providers/nested_provider.dart';
-
-
-
 
 // Screens
 
@@ -312,9 +295,3 @@ export 'package:socialverse/features/search/widgets/subverse_detail/subverse_pos
 export 'package:socialverse/features/search/widgets/video/video_widget.dart';
 
 // export 'package:socialverse/core/presentation/welcome_screen.dart';
-
-
-
-
-
-
